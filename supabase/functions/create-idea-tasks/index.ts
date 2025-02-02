@@ -73,7 +73,7 @@ serve(async (req) => {
                   {
                     "title": "[Subtask title (max 7 words)]",
                     "description": "[Brief subtask description (max 15 words)]",
-                    "prompt": "[Prompt that will help the user complete the subtask]"
+                    "prompt": "[Prompt that will help the user complete the subtask]",
                   }
                 ]
               },
@@ -134,12 +134,14 @@ serve(async (req) => {
         continue;
       }
 
+      let subtaskOrder = 0;
       // Insert subtasks
       const subtasksToInsert = task.subtasks.map(subtask => ({
         title: subtask.title,
         description: subtask.description,
-        // prompt: subtask.prompt,
+        prompt_solution: subtask.prompt,
         task_id: taskData.id,
+        order: subtaskOrder++
       }));
 
       const { error: subtaskError } = await supabase
